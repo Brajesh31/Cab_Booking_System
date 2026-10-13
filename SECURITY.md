@@ -8,7 +8,7 @@ This repository implements a prototype ride-booking API with JWT authentication 
 
 - **Committed defaults:** **application.properties** contains a local database username/password and a fixed JWT signing secret. They are not safe production values. Override them locally and move secrets to a secret manager before deployment.
 - **Credential logging:** the driver login service prints the submitted password and stored password hash. These sensitive logs must be removed before use with real accounts.
-- **Sensitive entity responses:** profile and available-driver endpoints return JPA entities directly. Those entities include password hash fields, and nested entities may expose additional personal data.
+- **Sensitive entity responses:** profile and available-driver endpoints return JPA entities directly. Those entities include password hash fields, and ride/payment entities may serialize related user or driver fields as well.
 - **Object ownership gaps:** profile, driver status, ride status, and payment receipt operations accept IDs without consistently verifying the authenticated principal owns the resource. Role checks alone do not establish ownership.
 - **Payment is simulated:** the payment service stores the requested amount and marks a record **SUCCESS** without contacting a payment processor.
 - **Unsafe persistence defaults:** Hibernate schema update, SQL output, and Spring Security DEBUG logging are enabled in the checked-in configuration.
