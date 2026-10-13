@@ -27,7 +27,7 @@ Windows PowerShell:
     $env:SPRING_DATASOURCE_USERNAME = "your_local_db_user"
     $env:SPRING_DATASOURCE_PASSWORD = "your_local_db_password"
     $env:JWT_SECRET = "replace-with-a-unique-random-secret-at-least-32-bytes"
-    $env:JWT_EXPIRATION_MS = "86400000"
+    $env:JWT_EXPIRATIONMS = "86400000"
 
 macOS or Linux:
 
@@ -35,7 +35,7 @@ macOS or Linux:
     export SPRING_DATASOURCE_USERNAME='your_local_db_user'
     export SPRING_DATASOURCE_PASSWORD='your_local_db_password'
     export JWT_SECRET='replace-with-a-unique-random-secret-at-least-32-bytes'
-    export JWT_EXPIRATION_MS='86400000'
+    export JWT_EXPIRATIONMS='86400000'
 
 The JWT key must be sufficiently long for the configured HMAC algorithm. Generate a unique random value; never use the checked-in default in a public deployment.
 
