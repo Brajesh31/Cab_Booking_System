@@ -13,13 +13,23 @@
 	<artifactId>cabbookingsystem</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CabBookingSystem</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Cab booking REST API prototype using Spring Boot and MySQL</description>
 	<url />
 	<licenses>
-		<license />
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/license/mit</url>
+			<distribution>repo</distribution>
+		</license>
 	</licenses>
 	<developers>
-		<developer />
+		<developer>
+			<name>Brajesh Kumar</name>
+			<url>https://github.com/Brajesh31</url>
+			<roles>
+				<role>Maintainer</role>
+			</roles>
+		</developer>
 	</developers>
 	<scm>
 		<connection />
