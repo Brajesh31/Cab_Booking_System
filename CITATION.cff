@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use or adapt this software, please cite it as below."
+title: "Cab Booking System"
+type: software
+authors:
+  - family-names: Kumar
+    given-names: Brajesh
+version: "0.0.1-SNAPSHOT"
+repository-code: "https://github.com/Brajesh31/Cab_Booking_System"
+url: "https://github.com/Brajesh31/Cab_Booking_System"
+license: MIT
+keywords:
+  - Spring Boot
+  - Java
+  - REST API
+  - ride booking
