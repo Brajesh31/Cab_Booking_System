@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Project documentation
+    url: https://github.com/Brajesh31/Cab_Booking_System/tree/main/docs
+    about: Read setup, API, database, architecture, and security documentation.
+  - name: 🔐 Private security report
+    url: https://github.com/Brajesh31/Cab_Booking_System/security/advisories/new
+    about: Report vulnerabilities privately. Do not publish secrets or exploit details in public issues.
