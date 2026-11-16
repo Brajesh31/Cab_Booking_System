@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Cab Booking System API
+  version: 0.0.1-SNAPSHOT
+  description: |
+    Draft contract outline for the current Spring Boot prototype.
+    This file is documentation, not a generated or runtime-verified contract.
+    Confirm schemas against controllers and DTOs before treating it as normative.
+servers:
+  - url: http://localhost:8080
+    description: Local development
+security:
+  - bearerAuth: []
+paths:
+  /api/users/register:
+    post:
+      summary: Register a rider
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequest'
+      responses:
+        '200': { description: Registration message }
+        '400': { description: Registration error }
+  /api/users/login:
+    post:
+      summary: Authenticate a rider
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200': { description: JWT string }
+        '401': { description: Invalid credentials }
+  /api/drivers/register:
+    post:
+      summary: Register a driver
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverRegisterRequest'
+      responses:
+        '200': { description: Registration message }
+  /api/drivers/login:
+    post:
+      summary: Authenticate a driver
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DriverLoginRequest'
+      responses:
+        '200': { description: JWT string }
+        '401': { description: Invalid credentials }
+  /api/rides/book:
+    post:
+      summary: Book a ride
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RideBookingRequest'
+      responses:
+        '200': { description: Ride entity response in current implementation }
+        '401': { description: Missing or invalid authentication }
+        '403': { description: Role not permitted }
+  /api/rides/user/rides:
+    get:
+      summary: List rides for authenticated rider
+      responses:
+        '200': { description: Rider ride list }
+  /api/rides/status/{id}:
+    put:
+      summary: Update ride status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+        - in: query
+          name: status
+          required: true
+          schema:
+            type: string
+            enum: [REQUESTED, ASSIGNED, ONGOING, COMPLETED, CANCELLED]
+      responses:
+        '200': { description: Status updated }
+        '403': { description: Role not permitted }
+  /api/payments/process:
+    post:
+      summary: Create a payment record, not a real payment
+      description: Stores a record marked SUCCESS. No payment provider is called.
+      responses:
+        '200': { description: Payment record response }
+  /api/ratings:
+    post:
+      summary: Submit a ride rating
+      responses:
+        '200': { description: Rating response }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    UserRegisterRequest:
+      type: object
+      required: [name, email, phone, password]
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+        phone: { type: string }
+        password: { type: string, format: password }
+    LoginRequest:
+      type: object
+      required: [emailOrPhone, password]
+      properties:
+        emailOrPhone: { type: string }
+        password: { type: string, format: password }
+    DriverRegisterRequest:
+      type: object
+      required: [name, phone, licenseNumber, vehicleDetails, password]
+      properties:
+        name: { type: string }
+        phone: { type: string }
+        licenseNumber: { type: string }
+        vehicleDetails: { type: string }
+        password: { type: string, format: password }
+    DriverLoginRequest:
+      type: object
+      required: [phone, password]
+      properties:
+        phone: { type: string }
+        password: { type: string, format: password }
+    RideBookingRequest:
+      type: object
+      required: [pickupLocation, dropoffLocation]
+      properties:
+        pickupLocation: { type: string }
+        dropoffLocation: { type: string }
