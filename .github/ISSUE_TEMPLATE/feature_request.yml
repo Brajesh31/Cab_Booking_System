@@ -1,0 +1,38 @@
+name: ✨ Feature request
+description: Propose an improvement to the backend API.
+title: '[FEATURE]: '
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: New features should not bypass the security remediation priorities in ROADMAP.md.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: api
+    attributes:
+      label: API and data impact
+      description: List routes, DTOs, entities, migrations, and response changes.
+  - type: textarea
+    id: security
+    attributes:
+      label: Security and privacy impact
+      description: Explain authentication, role, ownership, location, and personal data impact.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
