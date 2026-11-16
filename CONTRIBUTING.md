@@ -1,32 +1,52 @@
-# Contributing
+# 🤝 Contributing Guide
 
-Thank you for considering a contribution to Cab Booking System. Changes should improve correctness, security, maintainability, accessibility, or API clarity.
+Thank you for considering a contribution to Cab Booking System. Changes should improve correctness, security, maintainability, or API clarity.
 
-## Before you begin
-
+## 🧭 Before you begin
 - Read the [Code of Conduct](CODE_OF_CONDUCT.md), [Security Policy](SECURITY.md), and [License](LICENSE).
 - Review the [README](README.md), [Roadmap](ROADMAP.md), and relevant technical docs.
-- Open an issue before a substantial API, schema, or authentication change.
-- Do not use real rider, driver, license, location, or payment data in development.
+- Open an issue before substantial API, schema, authentication, or domain changes.
+- Do not use real rider, driver, licence, location, or payment data in development.
+- Security fixes take priority over feature expansion.
 
-## Development setup
+## ⚙️ Development setup
+Use JDK 21, MySQL, and the Maven Wrapper. Configure a disposable local database and a unique local JWT secret using environment variable names in `.env.example`. Spring Boot does not automatically load the `.env.example` file.
 
-Use JDK 21, MySQL, and the Maven Wrapper. Configure a disposable local database and a strong local JWT secret using environment variables described by **.env.example**. From the repository root, use **./mvnw spring-boot:run** or **mvnw.cmd spring-boot:run** on Windows.
+macOS/Linux: `./mvnw spring-boot:run`. Windows: `mvnw.cmd spring-boot:run`.
 
-The project currently has insecure committed defaults, logs sensitive authentication data, returns entities containing hash fields, and lacks consistent object ownership checks. Do not expose the app or use real records until these issues have been fixed.
+Run baseline checks:
+~~~bash
+./mvnw clean test
+./mvnw package
+~~~
 
-## Code expectations
+## 🚨 Existing risks contributors must not ignore
+- The driver login service logs a submitted password and a stored password hash.
+- `application.properties` contains weak local database credentials and a fixed JWT signing secret.
+- Some endpoints serialize JPA entities that contain sensitive fields.
+- Several ID-based operations do not consistently enforce record ownership.
+- The payment service stores a record marked SUCCESS without calling a payment provider.
+- Ride fare is generated randomly and driver dispatch chooses the first available driver.
 
-- Keep controllers focused on HTTP mapping and validate request DTOs at the boundary.
-- Authenticate and authorize each resource operation, including ownership of the specific ride, driver, payment, rating, and profile.
-- Return response DTOs rather than JPA entities or password hashes.
+Do not expose this application or use real data until these problems are remediated.
+
+## 🧱 Code expectations
+- Keep controllers focused on HTTP mapping.
+- Put domain decisions in services and persistence queries in repositories.
+- Use validated request DTOs and explicit response DTOs.
+- Authenticate and authorize each resource operation, including record ownership.
 - Never log passwords, token values, hashes, or sensitive ride details.
-- Use server-generated values for fare and payment status; do not treat a stored **SUCCESS** value as payment processing.
+- Use server-generated values for fare and payment state.
 - Keep JWT keys and database credentials outside source control.
-- Use schema migrations for deliberate database changes instead of relying on automatic schema update in production.
-- Avoid exposing SQL and security debug logs in production.
-- Document API changes, status transitions, error behavior, and migrations.
+- Use schema migrations for deliberate database changes.
+- Avoid SQL and security DEBUG logs in production.
+- Document API changes, state transitions, errors, and migrations.
 
-## Pull requests
+## 🧪 Testing expectations
+Add tests for successful flows, invalid input, denied roles, cross-account access, data serialization, concurrency, and failure paths. A context-load test alone is not sufficient for business/security changes.
 
-Include the user problem, relevant routes and roles, request/response changes, validation and ownership checks, database migration and rollback notes, and tests or manual checks actually performed. Include example payloads without personal data and screenshots only when they help review UI/API documentation. Keep each pull request focused and do not claim production readiness without evidence.
+## 📬 Pull request requirements
+Include the problem, implementation summary, affected routes and roles, request/response changes, validation and ownership checks, database migration/rollback notes, and tests actually executed. Use only synthetic example data. Keep the pull request focused.
+
+## 📚 Documentation updates
+Update API, architecture, database, security, testing, and runbook docs when the corresponding behavior changes. Keep diagrams aligned with actual code and mark proposed behavior as proposed.
