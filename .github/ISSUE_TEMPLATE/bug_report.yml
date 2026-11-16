@@ -1,0 +1,58 @@
+name: 🐛 Bug report
+description: Report a reproducible defect in the Cab Booking System API.
+title: '[BUG]: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include passwords, hashes, JWTs, database credentials, driver licence data, or real pickup/drop-off details. Report security vulnerabilities privately using SECURITY.md.
+  - type: input
+    id: commit
+    attributes:
+      label: Commit SHA
+      description: Exact commit where the problem occurs.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Rider accounts
+        - Driver accounts
+        - JWT authentication
+        - Authorization / ownership
+        - Ride booking or status
+        - Payment record
+        - Ratings
+        - Database
+        - Build / startup
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and sanitized logs
+      description: Java version, OS, MySQL version, response status. Remove all secrets and personal data.
+    validations:
+      required: true
