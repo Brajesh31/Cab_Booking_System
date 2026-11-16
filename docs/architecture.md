@@ -68,3 +68,46 @@ JPA creates or updates schema according to **spring.jpa.hibernate.ddl-auto**. Th
 - Payment records are marked successful without a payment-provider call.
 - Driver assignment takes the first available record.
 - Database defaults, SQL logging, and security logging are development-only settings.
+
+
+## Visual architecture
+
+~~~mermaid
+flowchart TD
+    Client[REST Client] --> Security[Spring Security Filter Chain]
+    Security --> JWT[JWT Authentication Filter]
+    JWT --> Controller[Spring MVC Controller]
+    Controller --> Service[Service Interface]
+    Service --> Impl[Service Implementation]
+    Impl --> Repository[Spring Data JPA]
+    Repository --> DB[(MySQL)]
+    DB --> Repository
+    Repository --> Impl
+    Impl --> Controller
+~~~
+
+## Request sequence
+
+~~~mermaid
+sequenceDiagram
+    participant C as Client
+    participant F as Security Filter
+    participant R as REST Controller
+    participant S as Service
+    participant J as JPA Repository
+    participant DB as MySQL
+    C->>F: HTTP request + optional bearer token
+    F->>F: Authenticate/authorize
+    F->>R: Continue request
+    R->>S: Invoke use case
+    S->>J: Query/update
+    J->>DB: SQL
+    DB-->>J: Result
+    J-->>S: Entity/result
+    S-->>R: Service result
+    R-->>C: HTTP response
+~~~
+
+## Security boundary
+
+Role annotations are only one layer. The current service methods do not consistently scope resource queries to the authenticated principal. A future design should combine role checks with principal-scoped repository operations and allow-listed response DTOs.
