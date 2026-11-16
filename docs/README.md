@@ -56,3 +56,32 @@ Technical documentation for the Cab Booking System Java 21 / Spring Boot REST AP
 ## Accuracy rules
 
 Mark proposals as proposed. Do not describe record persistence as payment settlement. Do not claim ownership enforcement unless source code implements it. Do not claim tests passed unless actually executed. Keep sample credentials fake and nonfunctional.
+
+## Recently added engineering guides
+- [Project overview](PROJECT_OVERVIEW.md)
+- [Feature inventory](FEATURES.md)
+- [Project structure](PROJECT_STRUCTURE.md)
+- [Testing strategy](TESTING.md)
+- [Security review](SECURITY_REVIEW.md)
+- [Security design](SECURITY.md)
+- [Release process](RELEASE_PROCESS.md)
+- [Operations guide](OPERATIONS.md)
+
+## Architecture diagrams
+- [System architecture](diagrams/system-architecture.md)
+- [JWT authentication](diagrams/authentication-flow.md)
+- [Ride booking](diagrams/ride-booking-flow.md)
+- [Ride lifecycle](diagrams/ride-lifecycle.md)
+- [Contribution workflow](diagrams/contribution-flow.md)
+
+## Database references
+- [Entity model](database/model.md)
+- [Data lifecycle](database/lifecycle.md)
+
+## Templates and runbooks
+- [Feature, bug, security, test, incident, release templates](templates/README.md)
+- [ADR template and decision log](decisions/README.md)
+- [Operational runbooks](runbooks/README.md)
+- [Sanitized API examples](api/examples/README.md)
+- [OpenAPI draft](api/openapi.yaml)
+- [Postman collection](api/examples/cab-booking.postman_collection.json)
