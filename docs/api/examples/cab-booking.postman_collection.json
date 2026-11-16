@@ -1,0 +1,106 @@
+{
+  "info": {
+    "_postman_id": "cab-booking-system-local-examples",
+    "name": "Cab Booking System API (Local Examples)",
+    "description": "Sanitized examples for the current prototype. Payment is simulated and ownership checks are incomplete. Use only with a disposable local database.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "riderToken",
+      "value": "REPLACE_WITH_LOCAL_RIDER_JWT"
+    },
+    {
+      "key": "driverToken",
+      "value": "REPLACE_WITH_LOCAL_DRIVER_JWT"
+    }
+  ],
+  "item": [
+    {
+      "name": "Rider",
+      "item": [
+        {
+          "name": "Register rider",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Demo Rider\",\n  \"email\": \"rider@example.test\",\n  \"phone\": \"9000000001\",\n  \"password\": \"DO_NOT_REUSE_THIS_EXAMPLE\"\n}"
+            },
+            "url": "{{baseUrl}}/api/users/register"
+          }
+        },
+        {
+          "name": "Login rider",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"emailOrPhone\": \"rider@example.test\",\n  \"password\": \"DO_NOT_REUSE_THIS_EXAMPLE\"\n}"
+            },
+            "url": "{{baseUrl}}/api/users/login"
+          }
+        },
+        {
+          "name": "Book ride",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{riderToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pickupLocation\": \"Demo pickup location\",\n  \"dropoffLocation\": \"Demo drop-off location\"\n}"
+            },
+            "url": "{{baseUrl}}/api/rides/book"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Driver",
+      "item": [
+        {
+          "name": "Login driver",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"9000000002\",\n  \"password\": \"DO_NOT_REUSE_THIS_EXAMPLE\"\n}"
+            },
+            "url": "{{baseUrl}}/api/drivers/login"
+          }
+        }
+      ]
+    }
+  ]
+}
